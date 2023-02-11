@@ -12,22 +12,12 @@
 CURDIR="$(dirname "$0")"
 INCDIR="${CURDIR}/include"
 
-
 #ANSWER="$(mktemp -t tili.XXXXX || exit 1)"
 
 source "${INCDIR}/args.sh"
 
-trap "DIE" SIGINT SIGQUIT SIGTERM SIGTSTP
-
-function DIE() {
-    echo "the DIE function"
-    exit 1
-}
-
-function DIALOG() {
-    dialog --keep-tite --no-shadow --colors --backtitle "TiLi - The Interavtive Linux Installer" \
-        --cancel-label "Back" --aspect 20 "$@"
-}
+# TODO: bug free method for adding more signals
+trap "DIE" SIGTSTP SIGINT
 
 function welcome_message() {
     DIALOG --title "TiLi" --yes-label "Continue" --no-label "Back" \
@@ -41,18 +31,23 @@ function welcome_message() {
     case $? in 
         0)
             echo "continue"
+            return 0
             ;;
         1)
             echo "cancel"
+            return 1
             ;;
         255)
+            # TODO: trap ESC signal
             echo "dying"
+            return 255
             ;;
     esac
 }
 
 function main() {
     welcome_message
+    echo $?
 }
 
 main "$@"

@@ -33,3 +33,12 @@ WIDGET_SIZE="10 70"
 MENU_LABEL="Use ${BOLD}UP${RESET} and ${BOLD}DOWN${RESET} keys to navigate menus. \
     Use ${BOLD}TAB${RESET} to switch between buttons and ${BOLD}ENTER${RESET} to select."
 
+function DIE() {
+    echo "the DIE function"
+    exit 1
+}
+
+function DIALOG() {
+    dialog --keep-tite --no-shadow --colors --backtitle "TiLi - The Interavtive Linux Installer" \
+        --cancel-label "Back" --aspect 20 "$@"
+}
