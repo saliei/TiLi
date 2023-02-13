@@ -10,6 +10,9 @@ DHCPCD="/usr/sbin/dhcpcd"
 # TODO: maybe a better way to export this
 export DIALOGRC="$PWD/dialogrc"
 
+# TODO: a more general way to set editor, see if there are any other editors, etc.
+export EDITOR=${EDITOR:vim}
+
 # color codes,
 BLACK="\Z0"
 RED="\Z1"
@@ -25,7 +28,7 @@ ULINE="\Zu"
 RESET="\Zn"
 
 # dialog sizes
-INPUT_SIZE="10 65"
+INPUT_SIZE="10 80"
 MSGBOX_SIZE="10 70"
 MENU_SIZE="14 60 0"
 YESNO_SIZE="$INPUT_SIZE"
@@ -33,12 +36,3 @@ WIDGET_SIZE="10 70"
 MENU_LABEL="Use ${BOLD}UP${RESET} and ${BOLD}DOWN${RESET} keys to navigate menus. \
     Use ${BOLD}TAB${RESET} to switch between buttons and ${BOLD}ENTER${RESET} to select."
 
-function DIE() {
-    echo "the DIE function"
-    exit 1
-}
-
-function DIALOG() {
-    dialog --keep-tite --no-shadow --colors --backtitle "TiLi - The Interavtive Linux Installer" \
-        --cancel-label "Back" --aspect 20 "$@"
-}
